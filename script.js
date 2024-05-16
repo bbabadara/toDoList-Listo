@@ -84,7 +84,7 @@ let taches=[
 remove.addEventListener("click",function(){
     const inputsChecked=Array.from(document.querySelectorAll("input[type=checkbox]:checked"))
      taches=deleteDoneTask(inputsChecked)
-    taskBody.innerHTML=generateTbody(taches)
+    
 })
 
 for (const input of inputs) {
@@ -122,14 +122,10 @@ for (const trie of Array.from(spansFilterEtat)){
 
 
 taskBtn.addEventListener("click",function(){
-    newTach=
-    {
-        id:Math.floor(Math.random()*1000),
-        nom:taskForm["tache"].value,
-        dateheure:taskForm["date"].value,
-        etat:0
-  }
-  taches.push(newTach)
+   let  newTache=Object.fromEntries(new FormData(taskForm)) 
+  newTache["id"]=Math.floor(Math.random()*1000)
+
+  taches.push(newTache)
   // console.log(tabTache);
   init();
     // taskForm.submit()
@@ -236,33 +232,19 @@ function trierTache(order, trie) {
     }
 }
 
-//     function trierTacheParNom(trie){
-//         if(trie=="asc"){
-//             return taches.sort((a, b) => a.nom.localeCompare(b.nom));
-//         }else if (trie == "dsc") {
-//             return taches.sort((a, b) => b.nom.localeCompare(a.nom));
-//         }
-// }
+
 
 function deleteDoneTask(inputsChecked){
-const ids=inputsChecked.map(input=>parseInt(input.dataset.id))
+const ids=inputsChecked.map(function(input){
+    input.parentElement.parentElement.remove()
+  return parseInt(input.dataset.id)
+})
 const updated=taches.filter(function(t){
   return  ids.indexOf(t.id)==-1
 })
 return updated
 }
-// function deleteDoneTask(tab){
-// for (const done of tab) {
-//    const id=done.getAttribute("data-id")
-//    for (let i = 0; i < taches.length; i++) {
-//     const tache = taches[i];
-//     if (tache.id==id) {
-//         taches.splice(i,1)
-//     }
-//   }
-// }
-// return taches
-// }
+
 
 
 
