@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des tâches</title>
+</head>
+<body>
+
+<h1>Liste des tâches</h1>
+
+<div id="listeTaches">
+    <!-- Les tâches seront ajoutées ici par JavaScript -->
+</div>
+
+<script>
+const taches = [
+    {
+        id: 1,
+        nom: "faire js",
+        dateheure: "2024-01-04 12:00",
+        etat: 0
+    },
+    {
+        id: 2,
+        nom: "Php",
+        dateheure: "2023-05-04 12:00",
+        etat: 1
+    },
+    {
+        id: 3,
+        nom: "Python",
+        dateheure: "2024-06-15 10:00",
+        etat: 1
+    },
+    {
+        id: 4,
+        nom: "CSS",
+        dateheure: "2024-07-20 14:30",
+        etat: 0
+    },
+    {
+        id: 5,
+        nom: "HTML",
+        dateheure: "2024-08-10 09:00",
+        etat: 1
+    },
+    {
+        id: 6,
+        nom: "Node.js",
+        dateheure: "2024-09-05 15:45",
+        etat: 0
+    },
+    {
+        id: 7,
+        nom: "React",
+        dateheure: "2024-10-12 11:00",
+        etat: 1
+    },
+    {
+        id: 8,
+        nom: "Express.js",
+        dateheure: "2024-11-20 10:30",
+        etat: 0
+    },
+    {
+        id: 9,
+        nom: "MongoDB",
+        dateheure: "2024-12-05 13:15",
+        etat: 1
+    },
+    {
+        id: 10,
+        nom: "SQL",
+        dateheure: "2025-01-10 16:00",
+        etat: 0
+    }
+];
+
+// Fonction pour convertir la date en objet Date
+function convertDate(dateString) {
+    var parts = dateString.split(" ");
+    var datePart = parts[0].split("-");
+    var timePart = parts[1].split(":");
+    return new Date(datePart[0], datePart[1] - 1, datePart[2], timePart[0], timePart[1]);
+}
+
+// Sélection de la div où les tâches seront ajoutées
+var listeTachesDiv = document.getElementById("listeTaches");
+
+// Parcourir le tableau de tâches et créer les éléments HTML
+taches.forEach(function(tache) {
+    // Création de l'élément de tâche
+    var tacheElement = document.createElement("div");
+    tacheElement.classList.add("tache");
+
+    // Création des éléments à l'intérieur de la tâche
+    var nomElement = document.createElement("h2");
+    nomElement.textContent = tache.nom;
+    tacheElement.appendChild(nomElement);
+
+    var dateElement = document.createElement("p");
+    dateElement.textContent = "Date et heure : " + convertDate(tache.dateheure);
+    tacheElement.appendChild(dateElement);
+
+    var etatElement = document.createElement("p");
+    etatElement.textContent = "État : " + (tache.etat === 1 ? "Fait" : "À faire");
+    tacheElement.appendChild(etatElement);
+
+    // Ajout du bouton supprimer
+    var boutonSupprimer = document.createElement("button");
+    boutonSupprimer.textContent = "Supprimer";
+    boutonSupprimer.addEventListener("click", function() {
+        // Supprimer la tâche du tableau
+        var index = taches.indexOf(tache);
+        if (index !== -1) {
+            taches.splice(index, 1);
+            // Mettre à jour l'affichage
+            listeTachesDiv.removeChild(tacheElement);
+        }
+    });
+    tacheElement.appendChild(boutonSupprimer);
+
+    // Ajout de la tâche à la liste
+    listeTachesDiv.appendChild(tacheElement);
+});
+</script>
+
+</body>
+</html>

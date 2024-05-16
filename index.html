@@ -9,7 +9,7 @@
 </head> 
 <body class="bg-primary">
   <div class="container-fluid col-5 mt-5 bg-white">
-   <div class="d-flex align-items-center p-1 justify-content-between"> <input type="checkbox" class="coche " onclick="taskDone(this)"><div class="col-9"><h4 class="">A faire pour le All Date </h4></div></div>
+   <div class="d-flex align-items-center p-1 justify-content-between"> <input type="checkbox" id="doneAll" onclick="doneAll(this)"><div class="col-9"><h4 class="">A faire pour le All Date </h4></div></div>
       <div class="border border-dark mb-3"></div>
       <div class="d-flex justify-content-between">
         <div class="d-flex align-items-center p-2">
@@ -18,8 +18,8 @@
           <button type="button" class="btn btn-link" id="nameFilter">Par nom</button>
         </div>
         <div class="d-flex align-items-center p-2">
-          <span class="material-symbols-outlined trieHeure" data-order="asc"> arrow_upward </span>
-          <span class="material-symbols-outlined trieHeure" data-order="dsc"> arrow_downward </span>
+          <span class="material-symbols-outlined trieDate" data-order="asc"> arrow_upward </span>
+          <span class="material-symbols-outlined trieDate" data-order="dsc"> arrow_downward </span>
           <button type="button" class="btn btn-link">Par heure</button>
         </div>
         <div class="d-flex align-items-center p-2">
@@ -95,7 +95,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" id="taskBtn"  class="btn btn-dark">Ajouter</button>
+        <button type="button" id="taskBtn" data-bs-dismiss="modal" class="btn btn-dark">Ajouter</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
       </div>
     </div>

@@ -4,11 +4,13 @@ const taskForm=document.querySelector("#taskForm")
 const inputs = document.querySelectorAll("input[type=text]");
 const spansFilterName = document.getElementsByClassName("trieNom");
 const spansFilterEtat= document.querySelectorAll(".trieEtat");
+const spansFilterDate= document.querySelectorAll(".trieDate");
 const taskBody=document.querySelector("#taskBody")
 const remove=document.querySelector("#remove")
 const nameFilter=document.querySelector("#nameFilter")
 const inputsChecked=document.querySelectorAll("input[type=checkbox]:checked");
 var disabledBtn = true
+
 const taches=[
     {
         id: 1,
@@ -81,7 +83,8 @@ const taches=[
 //evenement
 remove.addEventListener("click",function(){
     const inputsChecked=document.querySelectorAll("input[type=checkbox]:checked")
-    console.log(inputsChecked);
+    const nTab=deleteDoneTask(Array.from(inputsChecked))
+    taskBody.innerHTML=generateTbody(nTab)
 })
 
 for (const input of inputs) {
@@ -97,31 +100,34 @@ for (const input of inputs) {
 
 for (const trie of spansFilterName){
     trie.addEventListener("click", function() {
-        tabl=trierTacheParNom(this.getAttribute("data-order"));
+        tabl=trierTache(this.getAttribute("data-order"),"nom");
+        taskBody.innerHTML=generateTbody(tabl)
+    })
+}
+for (const trie of spansFilterDate){
+    trie.addEventListener("click", function() {
+        tabl=trierTache(this.getAttribute("data-order"),"dateheure");
         taskBody.innerHTML=generateTbody(tabl)
     })
 }
 for (const trie of Array.from(spansFilterEtat)){
-    console.log(spansFilterEtat);
+    // console.log(spansFilterEtat);
     trie.addEventListener("click", function() {
-        alert("ok")
-        tabl=trierTacheParEtat(this.getAttribute("data-order"));
+        // alert("ok")
+        tabl=trierTache(this.getAttribute("data-order"),"etat");
         taskBody.innerHTML=generateTbody(tabl)
     })
 }
 
-// nameFilter.addEventListener("click",function(){
-//     alert("ok")
-//    tabl=trierTacheParNom("asc");
-//    taskBody.innerHTML=generateTbody(tabl)
-// })
+
 
 taskBtn.addEventListener("click",function(){
-    newTach={
-     id:Math.floor(Math.random()*1000),
-      nom:taskForm["tache"].value,
-      dateheureheure:taskForm["date"].value,
-      etat:0
+    newTach=
+    {
+        id:Math.floor(Math.random()*1000),
+        nom:taskForm["tache"].value,
+        dateheure:taskForm["date"].value,
+        etat:0
   }
   taches.push(newTach)
   // console.log(tabTache);
@@ -130,18 +136,34 @@ taskBtn.addEventListener("click",function(){
 })
  //Declaration fonction
 function taskDone(checkbox) {
+    const all=document.querySelector("#doneAll")
     const ligneCible = checkbox.parentElement.parentElement;
     if (checkbox.checked) {
       ligneCible.style.textDecoration = "line-through";
     } else {
       ligneCible.style.textDecoration = "none";
+      all.checked=false
+    }
+  } 
+function doneAll(checkbox) {
+    const inputsToCheck=document.querySelectorAll(".coche")
+    if (checkbox.checked) {
+        inputsToCheck.forEach(function(input) {
+            input.checked=true
+             taskDone(input)
+            })
+    } else {
+        inputsToCheck.forEach(function(input) {
+            input.checked=false
+            taskDone(input)
+            })
     }
   } 
 
-  function deleteTask(button) {
-    const ligneCible = button.parentElement.parentElement;
-    ligneCible.parentElement.removeChild(ligneCible);
-  }
+//   function deleteTask(button) {
+//     const ligneCible = button.parentElement.parentElement;
+//     ligneCible.parentElement.removeChild(ligneCible);
+//   }
 
   function fieldsRequired(field) {
 
@@ -198,25 +220,49 @@ function generateTbody(taches){
 //generer un tr
 function generateTr(tache){
         return`<tr>
-        <td><input type="checkbox" data-id="${tache.id}" classe="coche" onclick="taskDone(this)"></td>
+        <td><input type="checkbox" data-id="${tache.id}" class="coche" onclick="taskDone(this)"></td>
         <td>${tache.nom}</td>
         <td>${tache.dateheure}</td>
         </tr>`
     }
    
 
-    function trierTacheParNom(trie){
-        if(trie=="asc"){
-            return taches.sort((a, b) => a.nom.localeCompare(b.nom));
-        }else if (trie == "dsc") {
-            return taches.sort((a, b) => b.nom.localeCompare(a.nom));
-        }
+
+function trierTache(order, trie) {
+    if (order == "asc") {
+        return taches.sort((a, b) => a[trie].localeCompare(b[trie]) );
+    } else if (order == "dsc") {
+        return taches.sort((a, b) => b[trie].localeCompare(a[trie]));
+    }
 }
-    function trierTacheParEtat(trie){
-        if(trie=="asc"){
-            return taches.sort((a, b) => a.etat.localeCompare(b.etat));
-        }else if (trie == "dsc") {
-            return taches.sort((a, b) => b.etat.localeCompare(a.etat));
-        }
+
+//     function trierTacheParNom(trie){
+//         if(trie=="asc"){
+//             return taches.sort((a, b) => a.nom.localeCompare(b.nom));
+//         }else if (trie == "dsc") {
+//             return taches.sort((a, b) => b.nom.localeCompare(a.nom));
+//         }
+// }
+
+function deleteDoneTask(inputsChecked){
+const ids=inputsChecked.map(input=>input.getAttribute("data-id"))
+// console.log(ids)
+const updated=taches.filter(t=>ids.indexOf(t.id)==-1)
+console.log(updated)
+return updated
 }
+// function deleteDoneTask(tab){
+// for (const done of tab) {
+//    const id=done.getAttribute("data-id")
+//    for (let i = 0; i < taches.length; i++) {
+//     const tache = taches[i];
+//     if (tache.id==id) {
+//         taches.splice(i,1)
+//     }
+//   }
+// }
+// return taches
+// }
+
+
 
