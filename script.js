@@ -11,7 +11,7 @@ const nameFilter=document.querySelector("#nameFilter")
 const inputsChecked=document.querySelectorAll("input[type=checkbox]:checked");
 var disabledBtn = true
 
-const taches=[
+let taches=[
     {
         id: 1,
         nom: "faire js",
@@ -82,9 +82,9 @@ const taches=[
 
 //evenement
 remove.addEventListener("click",function(){
-    const inputsChecked=document.querySelectorAll("input[type=checkbox]:checked")
-    const nTab=deleteDoneTask(Array.from(inputsChecked))
-    taskBody.innerHTML=generateTbody(nTab)
+    const inputsChecked=Array.from(document.querySelectorAll("input[type=checkbox]:checked"))
+     taches=deleteDoneTask(inputsChecked)
+    taskBody.innerHTML=generateTbody(taches)
 })
 
 for (const input of inputs) {
@@ -245,10 +245,10 @@ function trierTache(order, trie) {
 // }
 
 function deleteDoneTask(inputsChecked){
-const ids=inputsChecked.map(input=>input.getAttribute("data-id"))
-// console.log(ids)
-const updated=taches.filter(t=>ids.indexOf(t.id)==-1)
-console.log(updated)
+const ids=inputsChecked.map(input=>parseInt(input.dataset.id))
+const updated=taches.filter(function(t){
+  return  ids.indexOf(t.id)==-1
+})
 return updated
 }
 // function deleteDoneTask(tab){
