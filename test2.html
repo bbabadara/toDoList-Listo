@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage Example</title>
+</head>
+<body>
+    <input type="text" id="inputElement" placeholder="Add an item">
+    <button id="addButton">Add to LocalStorage</button>
+    <ul id="itemList"></ul>
+
+    <script >
+        // Nom de la clé du tableau dans le localStorage
+const storageKey = 'myArray';
+
+// Fonction pour ajouter un élément au tableau dans le localStorage
+function addElementToLocalStorage(element) {
+    // Récupération du tableau existant
+    let array = JSON.parse(localStorage.getItem(storageKey)) || [];
+
+    // Ajout de l'élément au tableau
+    array.push(element);
+
+    // Enregistrement du tableau mis à jour dans le localStorage
+    localStorage.setItem(storageKey, JSON.stringify(array));
+
+    // Mise à jour de l'affichage
+    displayItems();
+}
+
+// Fonction pour afficher les éléments du localStorage dans une liste
+function displayItems() {
+    const itemList = document.getElementById('itemList');
+    itemList.innerHTML = '';
+
+    // Récupération du tableau existant
+    let array = JSON.parse(localStorage.getItem(storageKey)) || [];
+
+    // Création d'un élément de liste pour chaque élément du tableau
+    array.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        itemList.appendChild(li);
+    });
+}
+
+// Gestionnaire de clic pour ajouter un élément
+document.getElementById('addButton').addEventListener('click', () => {
+    const inputElement = document.getElementById('inputElement');
+    const newValue = inputElement.value.trim();
+
+    if (newValue) {
+        addElementToLocalStorage(newValue);
+        inputElement.value = '';
+    }
+});
+
+// Affichage des éléments au chargement de la page
+window.addEventListener('load', displayItems);
+
+    </script>
+</body>
+</html>

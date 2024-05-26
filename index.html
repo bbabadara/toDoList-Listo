@@ -1,111 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>To Do List</title>
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-</head> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>To Do List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+
 <body class="bg-primary">
   <div class="container-fluid col-5 mt-5 bg-white">
-   <div class="d-flex align-items-center p-1 justify-content-between"> <input type="checkbox" id="doneAll" onclick="doneAll(this)"><div class="col-9"><h4 class="">A faire pour le All Date </h4></div></div>
-      <div class="border border-dark mb-3"></div>
-      <div class="d-flex justify-content-between">
-        <div class="d-flex align-items-center p-2">
-          <span class="material-symbols-outlined trieNom" data-order="asc"> arrow_upward </span>
-          <span class="material-symbols-outlined trieNom" data-order="dsc"> arrow_downward </span>
-          <button type="button" class="btn btn-link" id="nameFilter">Par nom</button>
-        </div>
-        <div class="d-flex align-items-center p-2">
-          <span class="material-symbols-outlined trieDate" data-order="asc"> arrow_upward </span>
-          <span class="material-symbols-outlined trieDate" data-order="dsc"> arrow_downward </span>
-          <button type="button" class="btn btn-link">Par heure</button>
-        </div>
-        <div class="d-flex align-items-center p-2">
-          <span class="material-symbols-outlined trieEtat" data-order="asc"> arrow_upward </span>
-          <span class="material-symbols-outlined trieEtat" data-order="dsc"> arrow_downward </span>
-          <button type="button" class="btn btn-link">Par etat</button>
-        </div>
-      
-       
-      </div>
-      <!-- <div class="input-group mb-3">
-        <input type="text" id="taskInput" class="form-control col-5" placeholder="Enter task">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" id="taskBtn">Add Task</button>
-        </div>
-      </div> -->
-      <table id="taskTable" class="table">
-       
-        <tbody id="taskBody">
-          
-        </tbody>
 
-      </table>
-      <div class="border border-dark "></div>
+    <div class="d-flex align-items-center p-1 justify-content-between">
+      <input type="checkbox" id="doneAll" onclick="doneAll(this)" placeholder="o">
+      <div class="col-8">
+        <h4 class="">A faire pour le : <span id="filterTitle"> </span></h4>
+      </div>
+      <div>
+        <select class="form-select " name="pagination" id="pagination" aria-label="Default select example">
+
+          <option value="all">All</option>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="border border-dark mb-3"></div>
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center p-2">
+        <span class="material-symbols-outlined trieNom" data-order="asc"> arrow_upward </span>
+        <span class="material-symbols-outlined trieNom" data-order="dsc"> arrow_downward </span>
+        <button type="button" class="btn btn-link" id="nameFilter">Par nom</button>
+      </div>
+      <div class="d-flex align-items-center p-2">
+        <span class="material-symbols-outlined trieDate" data-order="asc"> arrow_upward </span>
+        <span class="material-symbols-outlined trieDate" data-order="dsc"> arrow_downward </span>
+        <button type="button" class="btn btn-link">Par heure</button>
+      </div>
+      <div class="d-flex align-items-center p-2">
+        <span class="material-symbols-outlined trieEtat" data-order="asc"> arrow_upward </span>
+        <span class="material-symbols-outlined trieEtat" data-order="dsc"> arrow_downward </span>
+        <button type="button" class="btn btn-link">Par etat</button>
+      </div>
+
+
+    </div>
+    <table id="taskTable" class="table text-center">
+
+      <tbody id="taskBody">
+
+      </tbody>
+
+    </table>
+    <div class="border border-dark "></div>
     <div class="d-flex ">
       <div class="d-flex align-items-center p-2">
-    
-        <button type="button" class="btn btn-primary" id="remove"><span class="material-symbols-outlined"> delete </span>Supprimer</button>
+
+        <button type="button" class="btn btn-danger" id="remove"><span class="material-symbols-outlined"> delete
+          </span>Supprimer</button>
       </div>
       <div class="d-flex align-items-center p-2">
-        <span class="material-symbols-outlined">add</span>
-        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Ajouter</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <span class="material-symbols-outlined">add</span>
+          Ajouter
+        </button>
       </div>
       <div class="d-flex align-items-center p-2 ms-2">
-        <span class="material-symbols-outlined">calendar_month</span>
-        <label for="chooseDate">Choisir Date</label>
-        <input id="chooseDate" type="date" class="ms-2">
-        <button type="button" class="btn btn-link" class="ms-lg-5">All</button>
+        <span class="backNext material-symbols-outlined p-2 " data-date="moins"> keyboard_double_arrow_left </span>
+        <input id="chooseDate" type="date" class="p-2"  aria-label="Choose date" oninput="fillDate(this)">
+        <span class="backNext material-symbols-outlined p-2 " data-date="plus"> keyboard_double_arrow_right </span>
+        <button type="button" id="btnAll" class="btn btn-primary p-2 ms-lg-3">All</button>
 
       </div>
     </div>
   </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter une tache</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="taskForm">
-          <div class="row mb-3">
-            <label for="inputTache" class="col-sm-2 col-form-label">Tache</label>
-            <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputTache" name="nom">
-              <div id="tache-error" class="invalid-feedback">
-          
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter une tache</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="taskForm">
+            <div class="row mb-3">
+              <label for="inputTache" class="col-sm-2 col-form-label">Tache</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputTache" name="nom">
+                <div id="tache-error" class="invalid-feedback">
+
+                </div>
               </div>
             </div>
-          </div>
-          <div class="row mb-3">
-            <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
-            <div class="col-sm-10">
-              <input type="datetime-local" class="form-control" id="inputDate" name="dateheure">
-              <input type="hidden" name="etat" value="0">
-              <div id="time-error" class="invalid-feedback">
-          
+            <div class="row mb-3">
+              <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+              <div class="col-sm-10">
+                <input type="datetime-local" class="form-control" id="inputDate" name="dateheure">
+                <input type="hidden" name="etat" value="0">
+                <div id="time-error" class="invalid-feedback">
+
+                </div>
               </div>
             </div>
-          </div>
+            <div class="input-group mb-3 ">
+              <div class=" d-flex flex-wrap" id="selectedUser" style="display: none;">
+
+                <!-- <div class="d-flex align-items-center rounded-pill  shadow px-2">
+                  <img src="images/6accff99.jpg" alt="user" class="rounded-circle" style="width:25px;height:25px;">
+                  <span class="p-2">Badara</span>
+                  <span class="material-symbols-outlined   " onclick="removeUser(this)"> cancel </span>
+                </div> -->
+
+              </div>
+              <input type="text" class="form-control" id="searchUser" placeholder="Selectionner utilisateur" aria-label="Username" aria-describedby="selectedUser">
+            </div>
+            <div class="" id="proposedUser" >
+              <!-- <div class=" d-flex align-items-center border shadow px-2">
+              <img src="images/6accff99.jpg" alt="user" class="" style="width:50px;height:50px;">
+              <span class="p-2">Badara</span>
+             </div> -->
+
+        </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" id="taskBtn" data-bs-dismiss="modal" class="btn btn-dark">Ajouter</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" id="taskBtn" data-bs-dismiss="modal" class="btn btn-dark">Ajouter</button>
       </div>
     </div>
   </div>
-</div>
+  </div>
 
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <!-- <script src="variable.js"></script> -->
+  <script src="script.js"></script>
 </body>
+
 </html>
