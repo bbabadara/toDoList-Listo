@@ -20,108 +20,45 @@ const searchUser = getElement("#searchUser")
 const proposedUser = getElement("#proposedUser")
 const selectedUser = getElement("#selectedUser")
 const backNext = getElement(".backNext", true)
+
+
 var disabledBtn = true
 // var disabledBtnRemove=true
 
 // localStorage.setItem("taches",JSON.stringify([
-//     {
-//         id: 1,
-//         nom: "faire js",
-//         dateheure: "2024-01-04 12:00",
-//         etat: 0
-//     },
-//     {
-//         id: 2,
-//         nom: "Php",
-//         dateheure: "2023-05-04 12:00",
-//         etat: 1
-//     },
-//     {
-//         id: 3,
-//         nom: "Python",
-//         dateheure: "2024-06-15 10:00",
-//         etat: 1
-//     },
-//     {
-//         id: 4,
-//         nom: "CSS",
-//         dateheure: "2024-07-20 14:30",
-//         etat: 0
-//     },
-//     {
-//         id: 5,
-//         nom: "HTML",
-//         dateheure: "2024-08-10 09:00",
-//         etat: 1
-//     },
-//     {
-//         id: 6,
-//         nom: "Node.js",
-//         dateheure: "2024-09-05 15:45",
-//         etat: 0
-//     },
-//     {
-//         id: 7,
-//         nom: "React",
-//         dateheure: "2024-10-12 11:00",
-//         etat: 1
-//     },
-//     {
-//         id: 8,
-//         nom: "Express.js",
-//         dateheure: "2024-11-20 10:30",
-//         etat: 0
-//     },
-//     {
-//         id: 9,
-//         nom: "MongoDB",
-//         dateheure: "2024-12-05 13:15",
-//         etat: 1
-//     },
-//     {
-//         id: 10,
-//         nom: "SQL",
-//         dateheure: "2025-01-10 16:00",
-//         etat: 0
-//     }
+//     { id: 1, nom: "faire js", dateheure: "2024-01-04 12:00", etat: 0, idu: [1, 3, 11] },
+//     { id: 2, nom: "Php", dateheure: "2023-05-04 12:00", etat: 1, idu: [1] },
+//     { id: 3, nom: "Python", dateheure: "2024-06-15 10:00", etat: 1, idu: [2, 8] },
+//     { id: 4, nom: "CSS", dateheure: "2024-07-20 14:30", etat: 0, idu: [3,8] },
+//     { id: 5, nom: "HTML", dateheure: "2024-08-10 09:00", etat: 1, idu: [4] },
+//     { id: 6, nom: "Node.js", dateheure: "2024-09-05 15:45", etat: 0, idu: [6] },
+//     { id: 7, nom: "React", dateheure: "2024-10-12 11:00", etat: 1, idu: [7] },
+//     { id: 8, nom: "Express.js", dateheure: "2024-11-20 10:30", etat: 0, idu: [5] },
+//     { id: 9, nom: "MongoDB", dateheure: "2024-12-05 13:15", etat: 1, idu: [1, 20, 15] },
+//     { id: 10, nom: "SQL", dateheure: "2025-01-10 16:00", etat: 0, idu: [6, 18, 19] }
 // ]));
-const users = [
-    {
-        id: 1,
-        nom: "Badara",
-        photo: "6accff99.jpg"
-    },
-    {
-        id: 2,
-        nom: "Mamadou",
-        photo: "6accff99.jpg"
-    },
-    {
-        id: 3,
-        nom: "Awa",
-        photo: "6accff99.jpg"
-    },
-    {
-        id: 4,
-        nom: "Djamilatou",
-        photo: "6accff99.jpg"
-    },
-    {
-        id: 5,
-        nom: "Amadou",
-        photo: "6accff99.jpg"
-    },
-    {
-        id: 6,
-        nom: "Madieume",
-        photo: "6accff99.jpg"
-    },
-    {
-        id: 7,
-        nom: "Issa",
-        photo: "6accff99.jpg"
-    }
-]
+const users =  [
+    { id: 1, nom: "Badara", photo: "u1.jpg" },
+    { id: 2, nom: "Mamadou", photo: "u2.jpg" },
+    { id: 3, nom: "Awa", photo: "u3.jpg" },
+    { id: 4, nom: "Djamilatou", photo: "u4.jpg" },
+    { id: 5, nom: "Amadou", photo: "u5.jpg" },
+    { id: 6, nom: "Madieume", photo: "u6.jpg" },
+    { id: 7, nom: "Issa", photo: "u7.jpg" },
+    { id: 8, nom: "Fatou", photo: "u8.jpg" },
+    { id: 9, nom: "Moussa", photo: "u9.jpg" },
+    { id: 10, nom: "Ndeye", photo: "u10.jpg" },
+    { id: 11, nom: "Ibrahima", photo: "u11.jpg" },
+    { id: 12, nom: "Seynabou", photo: "u3.jpg" },
+    { id: 13, nom: "Khadim", photo: "u5.jpg" },
+    { id: 14, nom: "Coumba", photo: "u8.jpg" },
+    { id: 15, nom: "Thierno", photo: "u2.jpg" },
+    { id: 16, nom: "Adama", photo: "u10.jpg" },
+    { id: 17, nom: "Cheikh", photo: "u11.jpg" },
+    { id: 18, nom: "Aissatou", photo: "u5.jpg" },
+    { id: 19, nom: "Alioune", photo: "u7.jpg" },
+    { id: 20, nom: "Penda", photo: "u8.jpg" }
+];
 
 // console.log(findUsersBySearch("d"));
 // console.log(findUserById(1));
@@ -198,20 +135,32 @@ for (const bn of Array.from(backNext)) {
         const dt = chooseDate.value
         const next = getNorPDate(dt, this.getAttribute("data-date"))
         chooseDate.value = next
+        filterTitle.textContent=convertDate(next)
         taskBody.innerHTML = generateTbody(getTachesByDate(next))
     })
 }
 
 
 taskBtn.addEventListener("click", function () {
+    const users=getElement(".idu",true)
+    // alert(users)
+   var ids=[]
+    for (const user of Array.from(users)) {
+        ids.push(parseInt(user.value))
+    }
     let newTache = Object.fromEntries(new FormData(taskForm))
+   const dat=newTache.dateheure.split("T")[0]
+    const now=getCurrentDate()
+    if (dat<now) {
+        alert("La date saisi est deja passee")
+        return
+    }
     newTache["id"] = getId()
-
+    newTache["idu"] = ids
     taches.push(newTache)
-
     localStorage.setItem("taches", JSON.stringify(taches))
     taskForm.reset()
-    //  taskForm.submit()
+    selectedUser.innerHTML=""
     taskBody.innerHTML = generateTbody(taches)
 
 })
@@ -304,8 +253,14 @@ function generateTbody(taches) {
 
 //generer un tr
 function generateTr(tache) {
+    const users=getUserPhoto(tache.idu)
+    var im=" "
+    users.forEach(user => {
+        im+=`<img src="images/${user}" alt="user" class="p-1" style="width:50px;height:50px;" ></img>`
+    })
     return `<tr>
         <td><input type="checkbox" data-id="${tache.id}" class="coche" onclick="taskDone(this)"></td>
+         <td>${im} </td>
         <td>${tache.nom}</td>
         <td>${tache.dateheure}</td>
         </tr>`
@@ -443,16 +398,25 @@ function generateProposedUser(user) {
 }
 function generateselectedUser(user) {
     return `
-    <div class="d-flex align-items-center rounded-pill  shadow px-2">
+    <div class="d-flex align-items-center rounded-pill SelUser shadow px-2" ">
         <img src="images/${user.photo}" alt="userSelected" class="rounded-circle" style="width:25px;height:25px;">
          <span class="p-2">${user.nom}</span>
-         <span class="material-symbols-outlined   " onclick="removeUser(this)"> cancel </span>
+         <span class="material-symbols-outlined " onclick="removeUser(this)"> cancel </span>
+         <input type="hidden" class="idu" name="idu" value="${user.id}">
     </div> `
 }
 
 function addme(element) {
     let user = findUserById(element.dataset.id)
     selectedUser.innerHTML += generateselectedUser(user[0])
-    // searchUser.value=" "
-    element.remove()
+    searchUser.value=""
+    proposedUser.innerHTML=""
 }
+
+function getUserPhoto(tabIdUsers){
+    return tabIdUsers.map(userId => {
+        const user = users.find(user => user.id === userId);
+        return user ? user.photo : null;
+    });
+}
+
